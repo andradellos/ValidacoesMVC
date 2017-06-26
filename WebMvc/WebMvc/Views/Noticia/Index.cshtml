@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebMvc.Models.Rotas.Noticia>
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Rotas em MVC</h2>
+
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+
+<div>
+	<ul>
+		@foreach (string Categs in ViewBag.Categorias)
+		{
+			<li>@Html.ActionLink(Categs, "MostraCategoria", "Noticia", new { @categoria = Categs }, null)</li>
+		}
+	</ul>
+</div>
+
+<div>
+	<ul>
+		@foreach (var item in Model)
+		{
+			<li>
+
+				@Html.ActionLink(item.Titulo, "MostraNoticia", "Noticia",
+			   new
+			   {
+				   @noticiaId = item.NoticiaId,
+				   @categoria = item.Categoria.ToLower(),
+				   @titulo = item.Titulo
+
+			   }, null
+			   )
+				<em>@Html.DisplayFor(modelItem => item.Categoria)</em>
+				<b>@Html.DisplayFor(modelItem => item.Data)</b>
+			</li>
+		}
+	</ul>
+</div>
+
+<div>
+	@Html.ActionLink("Todas Notícias", "TodasAsNoticias", "Noticia");
+</div>
